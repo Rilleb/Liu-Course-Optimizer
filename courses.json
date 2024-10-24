@@ -1,0 +1,41 @@
+{
+    "courses": [
+      {
+        "name": "Avancerad c++",
+        "hp": 6,
+        "advanced": 1,
+        "profile_specific": 1,
+        "mandatory": 0,
+        "user_required": 1,
+        "time_block": 1
+      },
+      {
+        "name": "Avancerad programvaruutveckling",
+        "hp": 6,
+        "advanced": 1,
+        "profile_specific": 1,
+        "mandatory": 0,
+        "user_required": 1,
+        "time_block": 2
+      },
+      {
+        "name": "AI",
+        "hp": 6,
+        "advanced": 1,
+        "profile_specific": 1,
+        "mandatory": 1,
+        "user_required": 1,
+        "time_block": 3
+      },
+      {
+        "name": "Etisk hackning",
+        "hp": 6,
+        "advanced": 0,
+        "profile_specific": 1,
+        "mandatory": 0,
+        "user_required": 0,
+        "time_block": 3
+      }
+    ]
+  }
+  
