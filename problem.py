@@ -15,6 +15,13 @@ class Course:
     time_block: int #between 1 and 4
 
 
+profile_specific_requirements = {
+    "hp": 120,
+    "advanced":90,
+    #"mandatory": "...." #implement same course name later
+}
+
+
 def main():
     course_list = []
     course_list.append(Course("Avancerad c++",6,1,0,0,0,1))
@@ -26,20 +33,18 @@ def main():
         data = json.load(f)
     
     course_list = data.get("courses")
-    print(courses)
-    x = [] # {0,1} course is taken 
-    c = [] # number of credits for the course
-    w = [] # {0,1} course is wanted 
-    m = [] # {0,1} course is mandatory 
-    a = [] # {0,1} course is advanced 
+    print(course_list)
 
-    courses = [solver.NumVar(0, 1, course[0]) for course in course_list]
+    x = [solver.NumVar(0, 1, "x"+str(i)) for i in range(0,len(course_list))]
     print("Number of variables =", solver.NumVariables())
 
     # Constraints
-    constraints = []
-    for i, course in enumerate(course_list):
-        constraints.append(solver.Constraint())
+    # Read exactly 120 credits
+    solver.Add(sum(course_list[i]["hp"]*x[i] for i in range (0, len(course_list))) == 120)
+    # Atleast 90 credits advanced
+    solver.Add(sum(course_list[i]["hp"]*course_list[i]["advanced"]*x[i] for i in range (0, len(course_list))) >= 90)
+
+   
 
 if __name__ == "__main__":
     main()
