@@ -1,5 +1,5 @@
 # TODO 
-# Add datastructure for schedule
+# Implement solution for same course being able to be taken in different periods or going over two continuous periods.
 import json
 from dataclasses import dataclass
 from ortools.linear_solver import pywraplp
@@ -43,6 +43,19 @@ def main():
     solver.Add(sum(course_list[i]["hp"]*x[i] for i in range (0, len(course_list))) == 120)
     # Atleast 90 credits advanced
     solver.Add(sum(course_list[i]["hp"]*course_list[i]["advanced"]*x[i] for i in range (0, len(course_list))) >= 90)
+    # Atleast 30 HP within main area (ex computer science)
+    solver.Add(sum(course_list[i]["hp"]*course_list[i]["main_area"]*x[i] for i in range (0, len(course_list))) >= 90)
+
+    # Max 18 hp per period (6 periods) and no overlapping time-blocks (4 time-blocks in each period)
+    for j in  range (1,7):
+        same_period_courses = [x.index() for x in course_list if course_list[x]["period"] == j] #indexes of all courses going in period j
+        solver.Add(sum(course_list[i]["hp"]*x[i] for i in same_period_courses) <= 18)
+        for k in range (1,5):
+            same_time_block_courses = [x for x in same_period_courses if course_list[x]["time_block"] == k] #indexes of all courses going in period j and time-block k
+            solver.Add(sum(x[i] for i in same_time_block_courses) <= 1)
+
+
+
 
    
 
