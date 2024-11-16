@@ -46,7 +46,7 @@ def main():
     # Atleast 30 HP within main area (ex computer science)
     solver.Add(sum(course_list[i]["hp"]*course_list[i]["main_area"]*x[i] for i in range (0, len(course_list))) >= 90)
 
-    # Max 18 hp per period (6 periods) and no overlapping time-blocks (4 time-blocks in each period)
+    # Max 18 credits per period (6 periods) and no overlapping time-blocks (4 time-blocks in each period)
     for j in  range (1,7):
         same_period_courses = [x.index() for x in course_list if course_list[x]["period"] == j] #indexes of all courses going in period j
         solver.Add(sum(course_list[i]["hp"]*x[i] for i in same_period_courses) <= 18)
